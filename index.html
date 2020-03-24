@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Movies App</title>
+  <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+
+<div class="container" id="app">
+
+    <div class="filter">
+      <input type="text" class="form-control" v-model="liveFilter">
+    </div>
+    <br>
+    <div class="filterauthor">
+      <select v-model="filterAuthor" class="form-control">
+        <option vlaue=''>All</option>
+        <option v-for="type in types">{{ type }}</option>
+      </select>
+    </div>
+    <hr>
+    <br>
+    <br>
+
+    <div class="movie-list" v-show="!movie">
+    <div v-for="movie in movies | filterBy liveFilter | filterBy filterAuthor">
+      <h4><a v-on:click="getTheMovie(movie.nid[0].value)">{{ movie.title[0].value }}</a></h4>
+      <p>
+          <strong>Director:</strong> {{ movie.field_director[0].value }}
+      </p>
+      <p>
+        <strong>Movie type:</strong><span v-for="type in movie.field_movie_type"><br>{{ type.value }}</span>
+        </p>
+      <img v-bind:src="movie.field_movie_poster[0].url" alt="{{ movie.field_movie_poster[0].alt }}">
+    </div>
+      <hr>
+    </div>
+    <div class="single-movie" v-show="movie">
+      <a v-on:click="getMovies" class="btn btn-danger">Back</a>
+      <div class="movie-item" v-for="movieItem in movie">
+        <h4><strong>Movie Title: </strong>{{ movieItem.title[0].value }}</h4>
+        <p>{{{ movieItem.body[0].value }}}</p>
+      </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/vue-resource.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Title of the document</title>
+</head>
+
+<body>
+  The content of the document......
+</body>
+
+</html>
